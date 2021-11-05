@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Button } from '../Components/atoms';
 import { emailVerification, passwordVerification } from '../services/auth';
+import createTokens from '../services/localStorage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +9,7 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    createTokens();
   };
 
   return (
