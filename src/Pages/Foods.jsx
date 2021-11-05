@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Foods = () => {
-  return (
-    <main>
-      OIOI
-    </main>
-  );
-};
+const Foods = () => (
+  <main>
+    OIOI
+  </main>
+);
 
 export default Foods;
