@@ -7,7 +7,7 @@ const Drinks = () => (
     <header>
       <ProfileButton />
       <PageTitle>Bebidas</PageTitle>
-      <Search />
+      <Search category="cocktail" />
     </header>
   </div>
 );
