@@ -28,7 +28,7 @@ export function fetchRecipes(option, wordSearched, category) {
   return (dispatch) => {
     dispatch(requestRecipes());
     return fetchFilterRecipes(option, wordSearched, category)
-      .then((response) => dispatch(receiveRecipes(response.meals)))
+      .then((response) => dispatch(receiveRecipes(response)))
       .catch((error) => console.log(error));
   };
 }

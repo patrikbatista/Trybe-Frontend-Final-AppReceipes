@@ -70,6 +70,9 @@ const SearchBar = ({ setOption, setWord, fetchReceitas, category }) => {
 SearchBar.propTypes = {
   category: PropTypes.string.isRequired,
   fetchReceitas: PropTypes.func.isRequired,
+  recipes: PropTypes.shape({
+    length: PropTypes.number,
+  }).isRequired,
   setOption: PropTypes.func.isRequired,
   setWord: PropTypes.func.isRequired,
 };
@@ -80,4 +83,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchReceitas: (o, w, c) => dispatch(fetchRecipes(o, w, c)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+const mapStateToProps = (state) => ({
+  recipes: state.recipeReducer.recipes,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
