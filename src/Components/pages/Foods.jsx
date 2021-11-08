@@ -1,12 +1,13 @@
 import React from 'react';
-import { PageTitle, ProfileButton, SearchButton } from '../atoms';
+import { PageTitle, ProfileButton } from '../atoms';
+import Search from '../molecules/Search';
 
 const Foods = () => (
   <main>
     <header>
       <ProfileButton />
       <PageTitle>Comidas</PageTitle>
-      <SearchButton />
+      <Search />
     </header>
   </main>
 );

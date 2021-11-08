@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Input, Button } from '../atoms';
 
-import { emailVerification, passwordVerification } from '../../functions/verify';
-import { createTokens, saveUser } from '../../functions/localStorage';
+import { emailVerification, passwordVerification } from '../../utils/verify';
+import { createTokens, saveUser } from '../../utils/localStorage';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');

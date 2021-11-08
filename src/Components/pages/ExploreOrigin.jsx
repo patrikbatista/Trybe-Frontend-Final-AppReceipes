@@ -1,12 +1,13 @@
 import React from 'react';
-import { PageTitle, ProfileButton, SearchButton } from '../atoms';
+import { PageTitle, ProfileButton } from '../atoms';
+import Search from '../molecules/Search';
 
 const ExploreOrigin = () => (
   <div>
     <header>
       <ProfileButton />
       <PageTitle>Explorar Origem</PageTitle>
-      <SearchButton />
+      <Search />
     </header>
   </div>
 );
