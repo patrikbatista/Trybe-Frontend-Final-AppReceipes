@@ -1,17 +1,24 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router';
 
-const LinkButton = ({ src, testid, alt, href }) => (
-  <input
-    type="image"
-    src={ src }
-    alt={ alt }
-    data-testid={ testid }
-    onClick={ () => {
-      window.location.href = href;
-    } }
-  />
-);
+const LinkButton = ({ src, testid, alt, href }) => {
+  const [redirect, setRedirect] = useState(false);
+
+  if (redirect) return <Redirect to={ href } />;
+
+  return (
+    <input
+      type="image"
+      src={ src }
+      alt={ alt }
+      data-testid={ testid }
+      onClick={ () => {
+        setRedirect(true);
+      } }
+    />
+  );
+};
 
 LinkButton.propTypes = {
   alt: PropTypes.string.isRequired,

@@ -45,14 +45,13 @@ export const fetchRecipes = async (category) => {
   let response = '';
   let data = '';
   switch (category) {
-  case 'food':
+  case 'meal':
     response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    data = response.json();
+    data = await response.json();
     return data.meals;
-
   case 'drink':
     response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    data = response.json();
+    data = await response.json();
     return data.drinks;
   default:
     break;
