@@ -1,9 +1,15 @@
 import React from 'react';
-import { PageTitle, ProfileButton } from '../atoms';
+import { PageTitle, LinkButton } from '../atoms';
+import profileIcon from '../../images/profileIcon.svg';
 
 const RecipesFavorites = () => (
   <header>
-    <ProfileButton />
+    <LinkButton
+      src={ profileIcon }
+      alt="perfil"
+      href="/perfil"
+      testid="profile-top-btn"
+    />
     <PageTitle>Receitas Favoritas</PageTitle>
   </header>
 );
