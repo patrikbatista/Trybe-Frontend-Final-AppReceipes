@@ -8,7 +8,7 @@ const handleOneResult = (result, category) => {
   }
 };
 
-const fetchFilterRecipes = async (option, word, category) => {
+export const fetchFilterRecipes = async (option, word, category) => {
   let response = '';
   let data = '';
   let result = '';
@@ -41,4 +41,20 @@ const fetchFilterRecipes = async (option, word, category) => {
   }
 };
 
-export default fetchFilterRecipes;
+export const fetchRecipes = async (category) => {
+  let response = '';
+  let data = '';
+  switch (category) {
+  case 'food':
+    response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    data = response.json();
+    return data.meals;
+
+  case 'drink':
+    response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    data = response.json();
+    return data.drinks;
+  default:
+    break;
+  }
+};

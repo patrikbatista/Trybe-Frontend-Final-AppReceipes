@@ -1,4 +1,4 @@
-import fetchFilterRecipes from '../../utils/fetch';
+import { fetchFilterRecipes, fetchRecipes } from '../../utils/fetch';
 
 export const SET_SEARCH_OPTION = 'SET_SEARCH_OPTION';
 export const SET_WORD_SEARCHED = 'SET_WORD_SEARCHED';
@@ -26,10 +26,19 @@ const receiveRecipes = (payload) => ({
   payload,
 });
 
-export function fetchRecipes(option, wordSearched, category) {
+export function getFilterRecipes(option, wordSearched, category) {
   return (dispatch) => {
     dispatch(requestRecipes());
     return fetchFilterRecipes(option, wordSearched, category)
+      .then((response) => dispatch(receiveRecipes(response)))
+      .catch(() => global.alert(errorMessage));
+  };
+}
+
+export function getRecipes(category) {
+  return (dispatch) => {
+    dispatch(requestRecipes());
+    return fetchRecipes(category)
       .then((response) => dispatch(receiveRecipes(response)))
       .catch(() => global.alert(errorMessage));
   };

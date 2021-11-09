@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { setSearchOption, setWordSearched, fetchRecipes } from '../../redux/actions';
+import { setSearchOption, setWordSearched, getFilterRecipes } from '../../redux/actions';
 
 const SearchBar = ({ setOption, setWord, fetchReceitas, category }) => {
   const [radioOption, setRadioOption] = useState('ingredients');
@@ -77,7 +77,7 @@ SearchBar.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   setOption: (option) => dispatch(setSearchOption(option)),
   setWord: (searched) => dispatch(setWordSearched(searched)),
-  fetchReceitas: (o, w, c) => dispatch(fetchRecipes(o, w, c)),
+  fetchReceitas: (o, w, c) => dispatch(getFilterRecipes(o, w, c)),
 });
 
 export default connect(null, mapDispatchToProps)(SearchBar);
