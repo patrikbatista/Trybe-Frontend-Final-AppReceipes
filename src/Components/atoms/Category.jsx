@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getRecipesByCategory, getRecipes } from '../../redux/actions';
 
@@ -8,10 +8,23 @@ const Category = ({
 }) => {
   const [isActive, setIsActive] = useState(false);
 
+  // Reference https://www.30secondsofcode.org/js/s/on-click-outside.
+  // Quando o usuário clicar fora do componente, o estado do componente é alterado para false.
+  const onClickOutside = (element, callback) => {
+    document.addEventListener('click', (e) => {
+      if (!element.contains(e.target)) callback();
+    });
+  };
+
+  useEffect(() => {
+    onClickOutside(document.getElementById(`${categoryName}`), () => setIsActive(false));
+  }, [categoryName, isActive]);
+
   return (
     <button
       type="button"
       data-testid={ `${categoryName}-category-filter` }
+      id={ categoryName }
       onClick={ () => {
         if (isActive) {
           setIsActive(false);

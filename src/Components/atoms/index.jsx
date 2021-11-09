@@ -3,6 +3,7 @@ import Button from './Button';
 import PageTitle from './PageTitle';
 import LinkButton from './LinkButton';
 import Category from './Category';
+import AllCategories from './AllCategories';
 
 export {
   Input,
@@ -10,4 +11,5 @@ export {
   PageTitle,
   LinkButton,
   Category,
+  AllCategories,
 };
