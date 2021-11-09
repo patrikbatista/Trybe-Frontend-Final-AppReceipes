@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTitle, ProfileButton } from '../atoms';
-import Search from '../molecules/Search';
+import Search from '../organisms/Search';
 
 const ExploreOrigin = () => (
   <div>

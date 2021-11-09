@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import searchIcon from '../../images/searchIcon.svg';
-import { SearchBar } from '../atoms';
+import { SearchBar } from '../molecules';
 
-const Search = () => {
+const Search = ({ category }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
@@ -14,9 +15,13 @@ const Search = () => {
         data-testid="search-top-btn"
         onClick={ () => setShowSearchBar(!showSearchBar) }
       />
-      {showSearchBar && <SearchBar />}
+      {showSearchBar && <SearchBar category={ category } />}
     </div>
   );
+};
+
+Search.propTypes = {
+  category: PropTypes.string.isRequired,
 };
 
 export default Search;
