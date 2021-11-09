@@ -9,7 +9,7 @@ import profileIcon from '../../images/profileIcon.svg';
 import CategoryContainer from '../molecules/CategoryContainer';
 
 const Foods = ({
-  loaded, recipes, categories, fillListOfRecipes, fillListOfCategories,
+  loaded, recipes, buttonLoaded, categories, fillListOfRecipes, fillListOfCategories,
 }) => {
   useEffect(() => {
     fillListOfRecipes('meal');
@@ -27,7 +27,8 @@ const Foods = ({
         />
         <PageTitle>Comidas</PageTitle>
         <Search category="meal" />
-        {loaded && <CategoryContainer categories={ categories } />}
+        {buttonLoaded
+        && <CategoryContainer categories={ categories } foodOrDrink="meal" />}
         {loaded && <RecipeCardsContainer recipes={ recipes } category="Meal" />}
       </header>
       <Footer />
@@ -40,11 +41,13 @@ Foods.propTypes = {
   fillListOfCategories: PropTypes.func.isRequired,
   fillListOfRecipes: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
+  buttonLoaded: PropTypes.bool.isRequired,
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   loaded: state.recipes.loaded,
+  buttonLoaded: state.recipes.buttonLoaded,
   recipes: state.recipes.recipes,
   categories: state.recipes.categories,
 });

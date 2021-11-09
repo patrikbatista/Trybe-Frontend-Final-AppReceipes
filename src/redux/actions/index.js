@@ -1,4 +1,9 @@
-import { fetchCategories, fetchFilterRecipes, fetchRecipes } from '../../utils/fetch';
+import {
+  fetchByCategory,
+  fetchCategories,
+  fetchFilterRecipes,
+  fetchRecipes,
+} from '../../utils/fetch';
 
 const errorMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -7,6 +12,7 @@ export const SET_WORD_SEARCHED = 'SET_WORD_SEARCHED';
 export const REQUEST_RECIPES = 'REQUEST_RECIPES';
 export const RECEIVE_RECIPES = 'RECEIVE_RECIPES';
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
+export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES';
 
 export const setSearchOption = (payload) => ({
   type: SET_SEARCH_OPTION,
@@ -27,12 +33,16 @@ const receiveRecipes = (payload) => ({
   payload,
 });
 
+const requestCategories = () => ({
+  type: REQUEST_CATEGORIES,
+});
+
 const receiveCategories = (payload) => ({
   type: RECEIVE_CATEGORIES,
   payload,
 });
 
-export function getFilterRecipes(option, wordSearched, category) {
+export function getFilteredRecipes(option, wordSearched, category) {
   return (dispatch) => {
     dispatch(requestRecipes());
     return fetchFilterRecipes(option, wordSearched, category)
@@ -51,9 +61,19 @@ export function getRecipes(category) {
 }
 
 export function getCategories(category) {
-  return (dispatch) => (
-    fetchCategories(category)
+  return (dispatch) => {
+    dispatch(requestCategories());
+    return fetchCategories(category)
       .then((response) => dispatch(receiveCategories(response)))
-      .catch(() => global.alert('Sinto muito, não encontramos nenhuma categoria.'))
-  );
+      .catch(() => global.alert('Sinto muito, não encontramos nenhuma categoria.'));
+  };
+}
+
+export function getRecipesByCategory(category, foodOrMeal) {
+  return (dispatch) => {
+    dispatch(requestRecipes());
+    return fetchByCategory(category, foodOrMeal)
+      .then((response) => dispatch(receiveRecipes(response)))
+      .catch(() => global.alert('Sinto muito, não encontramos nenhuma receita.'));
+  };
 }

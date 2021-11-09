@@ -74,3 +74,21 @@ export const fetchCategories = async (category) => {
     break;
   }
 };
+
+export const fetchByCategory = async (category, foodOrMeal) => {
+  let response = '';
+  let data = '';
+  switch (foodOrMeal) {
+  case 'meal':
+    response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+    data = await response.json();
+    console.log(data);
+    return data.meals;
+  case 'drink':
+    response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+    data = await response.json();
+    return data.drinks;
+  default:
+    break;
+  }
+};
