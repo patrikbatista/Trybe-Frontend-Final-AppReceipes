@@ -5,6 +5,8 @@ export const SET_WORD_SEARCHED = 'SET_WORD_SEARCHED';
 export const REQUEST_RECIPES = 'REQUEST_RECIPES';
 export const RECEIVE_RECIPES = 'RECEIVE_RECIPES';
 
+const errorMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 export const setSearchOption = (payload) => ({
   type: SET_SEARCH_OPTION,
   payload,
@@ -29,6 +31,6 @@ export function fetchRecipes(option, wordSearched, category) {
     dispatch(requestRecipes());
     return fetchFilterRecipes(option, wordSearched, category)
       .then((response) => dispatch(receiveRecipes(response)))
-      .catch((error) => console.log(error));
+      .catch(() => global.alert(errorMessage));
   };
 }

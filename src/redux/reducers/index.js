@@ -4,7 +4,7 @@ import recipeReducer from './recipeReducers';
 
 const rootReducer = combineReducers({
   searchReducer,
-  recipeReducer,
+  recipes: recipeReducer,
 });
 
 export default rootReducer;

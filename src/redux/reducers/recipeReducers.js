@@ -2,7 +2,7 @@ import { REQUEST_RECIPES, RECEIVE_RECIPES } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
-  loading: false,
+  loaded: false,
 };
 
 const recipeReducer = (state = INITIAL_STATE, action) => {
@@ -10,10 +10,10 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
   case REQUEST_RECIPES:
     return {
       ...state,
-      loading: true,
+      loaded: false,
     };
   case RECEIVE_RECIPES:
-    return { ...state, recipes: action.payload, loading: false };
+    return { ...state, recipes: action.payload, loaded: true };
   default:
     return state;
   }

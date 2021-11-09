@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import searchIcon from '../../images/searchIcon.svg';
-import { SearchBar } from '../atoms';
+import { SearchBar } from '../molecules';
 
 const Search = ({ category }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
