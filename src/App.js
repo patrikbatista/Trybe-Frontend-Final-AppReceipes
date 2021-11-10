@@ -2,14 +2,15 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import {
+  DrinkDetails,
   Drinks,
   Explore,
   ExploreDrinks,
   ExploreFoods,
   ExploreIngredients,
   ExploreOrigin,
+  FoodDetails,
   Foods,
-  Generic,
   Login,
   Profile,
   RecipesDone,
@@ -22,17 +23,25 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Foods } />
       <Route exact path="/bebidas" component={ Drinks } />
-      <Route exact path="/comidas/:id" render={ (props) => <Generic { ...props } /> } />
-      <Route exact path="/bebidas/:id" render={ (props) => <Generic { ...props } /> } />
+      <Route
+        exact
+        path="/comidas/:id"
+        render={ (props) => <FoodDetails { ...props } /> }
+      />
+      <Route
+        exact
+        path="/bebidas/:id"
+        render={ (props) => <DrinkDetails { ...props } /> }
+      />
       <Route
         exact
         path="/comidas/:id/in-progress"
-        render={ (props) => <Generic { ...props } /> }
+        render={ (props) => <FoodDetails { ...props } /> }
       />
       <Route
         exact
         path="/bebidas/:id/in-progress"
-        render={ (props) => <Generic { ...props } /> }
+        render={ (props) => <DrinkDetails { ...props } /> }
       />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoods } />

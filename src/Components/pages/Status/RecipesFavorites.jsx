@@ -1,6 +1,6 @@
 import React from 'react';
-import { PageTitle, LinkButton } from '../atoms';
-import profileIcon from '../../images/profileIcon.svg';
+import { PageTitle, LinkButton } from '../../atoms';
+import profileIcon from '../../../images/profileIcon.svg';
 
 const RecipesFavorites = () => (
   <header>
