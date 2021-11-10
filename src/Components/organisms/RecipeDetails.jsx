@@ -5,7 +5,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import YoutubeVideo from '../atoms/YoutubeVideo';
 import { IngredientsContainer, RecommendationContainer } from '../molecules';
 
-const RecipeDetails = ({ recipe, recommendations, foodOrDrink }) => {
+const RecipeDetails = ({ recipe, foodOrDrink }) => {
   const getRecipeIngredients = () => {
     const MAX_INGREDIENTS = 20;
     const ingredients = [];
@@ -61,7 +61,6 @@ const RecipeDetails = ({ recipe, recommendations, foodOrDrink }) => {
       </div>
       <RecommendationContainer
         foodOrDrink={ foodOrDrink }
-        recommendations={ recommendations }
       />
       <button type="button" data-testid="start-recipe-btn">Iniciar</button>
     </section>
@@ -76,7 +75,6 @@ RecipeDetails.propTypes = {
     strVideo: PropTypes.string,
     strAlcoholic: PropTypes.string,
   }).isRequired,
-  recommendations: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default RecipeDetails;

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { RecommendationCard } from '../atoms';
 
-const MAX = 5;
+const MAX = 6;
 
 const RecommendationContainer = ({ foodOrDrink }) => {
   const [recommendations, setRecommendations] = useState([]);
@@ -24,12 +24,20 @@ const RecommendationContainer = ({ foodOrDrink }) => {
   }, [foodOrDrink]);
 
   return (
-    <div>
+    <div
+      style={ {
+        display: 'flex',
+        height: '100px',
+        overflowX: 'scroll',
+        overflowY: 'hidden',
+        whiteSpace: 'nowrap',
+      } }
+    >
       {recommendations
     && recommendations.slice(0, MAX).map((recommendation, index) => (<RecommendationCard
       key={ index }
       index={ index }
-      foodOrDrink={ foodOrDrink }
+      foodOrDrink={ foodOrDrink === 'Meal' ? 'Drink' : 'Meal' }
       recommendation={ recommendation }
     />))}
     </div>
