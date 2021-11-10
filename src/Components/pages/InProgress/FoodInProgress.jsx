@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import RecipeDetails from '../../organisms/RecipeDetails';
 
-const FoodDetails = () => {
+const FoodInProgress = () => {
   const [recipe, setRecipe] = useState();
   const { id } = useParams();
 
@@ -21,10 +21,10 @@ const FoodDetails = () => {
       {recipe && <RecipeDetails
         recipe={ recipe }
         foodOrDrink="Meal"
-        status="inProgress"
+        status="toDo"
       />}
     </div>
   );
 };
 
-export default FoodDetails;
+export default FoodInProgress;

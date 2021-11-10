@@ -18,7 +18,11 @@ const DrinkDetails = () => {
 
   return (
     <div>
-      {recipe && <RecipeDetails recipe={ recipe } foodOrDrink="Drink" />}
+      {recipe && <RecipeDetails
+        recipe={ recipe }
+        foodOrDrink="Drink"
+        status="inProgress"
+      />}
     </div>
   );
 };

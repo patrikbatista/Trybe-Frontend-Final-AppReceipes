@@ -1,11 +1,30 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import { RecipeButtonStatus } from '../atoms';
+import FavoriteButton from '../atoms/FavoriteButton';
+import RecipeButtonFinished from '../atoms/RecipeButtonFinished';
 import YoutubeVideo from '../atoms/YoutubeVideo';
 import { IngredientsContainer, RecommendationContainer } from '../molecules';
 
-const RecipeDetails = ({ recipe, foodOrDrink }) => {
+const generateStatusButton = (statusOfRecipe, foodOrDrink, recipe, ingredients) => {
+  switch (statusOfRecipe) {
+  case 'done':
+    return null;
+  case 'inProgress':
+    return (<RecipeButtonStatus
+      foodOrDrink={ foodOrDrink }
+      recipeId={ recipe[`id${foodOrDrink}`] }
+      ingredients={ ingredients }
+    />);
+  case 'toDo':
+    return (<RecipeButtonFinished />);
+  default:
+    return null;
+  }
+};
+
+const RecipeDetails = ({ recipe, foodOrDrink, status }) => {
   const getRecipeIngredients = () => {
     const MAX_INGREDIENTS = 20;
     const ingredients = [];
@@ -40,12 +59,19 @@ const RecipeDetails = ({ recipe, foodOrDrink }) => {
         src={ shareIcon }
         alt="share"
         data-testid="share-btn"
+        onClick={ () => {
+          navigator.clipboard.writeText(window.location.href.toString());
+          const alerta = document.createElement('p');
+          alerta.innerHTML = 'Link copiado!';
+          alerta.classList.add('alerta');
+          alerta.style.display = 'none';
+          document.body.appendChild(alerta);
+        } }
       />
-      <input
-        type="image"
-        src={ whiteHeartIcon }
-        alt="share"
-        data-testid="favorite-btn"
+      <FavoriteButton
+        id={ recipe[`id${foodOrDrink}`] }
+        recipe={ recipe }
+        foodOrDrink={ foodOrDrink }
       />
       <p data-testid="recipe-category">
         {foodOrDrink === 'Drink'
@@ -57,12 +83,12 @@ const RecipeDetails = ({ recipe, foodOrDrink }) => {
       />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
       <div data-testid="video">
-        {recipe.strVideo && <YoutubeVideo url={ recipe.strVideo } />}
+        {recipe.strYoutube && <YoutubeVideo url={ recipe.strYoutube } />}
       </div>
       <RecommendationContainer
         foodOrDrink={ foodOrDrink }
       />
-      <button type="button" data-testid="start-recipe-btn">Iniciar</button>
+      {generateStatusButton(status, foodOrDrink, recipe, getRecipeIngredients())}
     </section>
   );
 };
@@ -70,11 +96,12 @@ const RecipeDetails = ({ recipe, foodOrDrink }) => {
 RecipeDetails.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
+    strAlcoholic: PropTypes.string,
     strCategory: PropTypes.string,
     strInstructions: PropTypes.string,
-    strVideo: PropTypes.string,
-    strAlcoholic: PropTypes.string,
+    strYoutube: PropTypes.string,
   }).isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 export default RecipeDetails;

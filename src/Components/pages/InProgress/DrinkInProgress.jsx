@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import RecipeDetails from '../../organisms/RecipeDetails';
 
-const FoodDetails = () => {
+const DrinkInProgress = () => {
   const [recipe, setRecipe] = useState();
   const { id } = useParams();
 
   const fetchRecipe = async (recipeId) => {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
     const data = await response.json();
-    setRecipe(data.meals[0]);
+    setRecipe(data.drinks[0]);
   };
 
   useEffect(() => {
@@ -20,11 +20,11 @@ const FoodDetails = () => {
     <div>
       {recipe && <RecipeDetails
         recipe={ recipe }
-        foodOrDrink="Meal"
-        status="inProgress"
+        foodOrDrink="Drink"
+        status="toDo"
       />}
     </div>
   );
 };
 
-export default FoodDetails;
+export default DrinkInProgress;

@@ -16,6 +16,8 @@ import {
   RecipesDone,
   RecipesFavorites,
 } from './Components/pages';
+import FoodInProgress from './Components/pages/InProgress/FoodInProgress';
+import DrinkInProgress from './Components/pages/InProgress/DrinkInProgress';
 
 function App() {
   return (
@@ -36,12 +38,12 @@ function App() {
       <Route
         exact
         path="/comidas/:id/in-progress"
-        render={ (props) => <FoodDetails { ...props } /> }
+        render={ (props) => <FoodInProgress { ...props } /> }
       />
       <Route
         exact
         path="/bebidas/:id/in-progress"
-        render={ (props) => <DrinkDetails { ...props } /> }
+        render={ (props) => <DrinkInProgress { ...props } /> }
       />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoods } />
