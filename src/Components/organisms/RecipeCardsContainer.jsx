@@ -17,9 +17,7 @@ const RecipeCardsContainer = ({ recipes, category }) => (
 
 RecipeCardsContainer.propTypes = {
   category: PropTypes.string.isRequired,
-  recipes: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default RecipeCardsContainer;
