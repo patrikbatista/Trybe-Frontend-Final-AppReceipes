@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 
 const RecipeButtonFinished = ({ disabled }) => {
-  const handleClick = () => {
-    console.log('clicked');
-  };
+  const [redirect, setRedirect] = useState(false);
+
+  if (redirect) return <Redirect to="/receitas-feitas" />;
 
   return (
     <button
@@ -17,7 +18,7 @@ const RecipeButtonFinished = ({ disabled }) => {
       disabled={ disabled }
       type="button"
       data-testid="finish-recipe-btn"
-      onClick={ handleClick }
+      onClick={ () => setRedirect(true) }
     >
       Finalizar Receita
     </button>
