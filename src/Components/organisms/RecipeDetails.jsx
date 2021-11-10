@@ -5,14 +5,13 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import YoutubeVideo from '../atoms/YoutubeVideo';
 import { IngredientsContainer, RecommendationContainer } from '../molecules';
 
-const RecipeDetails = ({ recipe, foodOrDrink }) => {
+const RecipeDetails = ({ recipe, recommendations, foodOrDrink }) => {
   const getRecipeIngredients = () => {
     const MAX_INGREDIENTS = 20;
     const ingredients = [];
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (recipe[`strIngredient${i}`] !== ''
       && recipe[`strIngredient${i}`]) {
-        console.log(recipe[`strIngredient${i}`]);
         ingredients.push(recipe[`strIngredient${i}`]);
       }
     }
@@ -60,7 +59,10 @@ const RecipeDetails = ({ recipe, foodOrDrink }) => {
       <div data-testid="video">
         {recipe.strVideo && <YoutubeVideo url={ recipe.strVideo } />}
       </div>
-      <RecommendationContainer foodOrDrink={ foodOrDrink } />
+      <RecommendationContainer
+        foodOrDrink={ foodOrDrink }
+        recommendations={ recommendations }
+      />
       <button type="button" data-testid="start-recipe-btn">Iniciar</button>
     </section>
   );
@@ -74,6 +76,7 @@ RecipeDetails.propTypes = {
     strVideo: PropTypes.string,
     strAlcoholic: PropTypes.string,
   }).isRequired,
+  recommendations: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default RecipeDetails;

@@ -9,7 +9,6 @@ const FoodDetails = () => {
   const fetchRecipe = async (recipeId) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
     const data = await response.json();
-    console.log(data.meals[0]);
     setRecipe(data.meals[0]);
   };
 

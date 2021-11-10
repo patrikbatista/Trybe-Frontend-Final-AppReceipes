@@ -5,7 +5,9 @@ const RecommendationCard = ({ index, recommendation, foodOrDrink }) => (
   <div
     data-testid={ `${index}-recomendation-card` }
   >
-    {recommendation[`str${foodOrDrink}`]}
+    <h1 data-testid={ `${index}-recomendation-title` }>
+      {recommendation[`str${foodOrDrink}`]}
+    </h1>
   </div>
 );
 
