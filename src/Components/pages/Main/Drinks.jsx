@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getRecipes, getCategories } from '../../redux/actions';
-import { PageTitle, LinkButton } from '../atoms';
-import { Search, RecipeCardsContainer } from '../organisms';
-import { Footer } from '../molecules';
-import profileIcon from '../../images/profileIcon.svg';
-import CategoryContainer from '../molecules/CategoryContainer';
+import { getRecipes, getCategories } from '../../../redux/actions';
+import { PageTitle, LinkButton } from '../../atoms';
+import { Search, RecipeCardsContainer } from '../../organisms';
+import profileIcon from '../../../images/profileIcon.svg';
+import { Footer } from '../../molecules';
+import CategoryContainer from '../../molecules/CategoryContainer';
 
-const Foods = ({
-  loaded, recipes, buttonLoaded, categories, fillListOfRecipes, fillListOfCategories,
+const Drinks = ({
+  recipes, categories, loaded, buttonLoaded, fillListOfRecipes, fillListOfCategories,
 }) => {
   useEffect(() => {
-    fillListOfRecipes('meal');
-    fillListOfCategories('meal');
+    fillListOfRecipes('drink');
+    fillListOfCategories('drink');
   }, [fillListOfRecipes, fillListOfCategories]);
 
   return (
-    <main>
+    <div>
       <header>
         <LinkButton
           src={ profileIcon }
@@ -25,18 +25,18 @@ const Foods = ({
           href="/perfil"
           testid="profile-top-btn"
         />
-        <PageTitle>Comidas</PageTitle>
-        <Search category="meal" />
+        <PageTitle>Bebidas</PageTitle>
+        <Search category="cocktail" />
         {buttonLoaded
-        && <CategoryContainer categories={ categories } foodOrDrink="meal" />}
-        {loaded && <RecipeCardsContainer recipes={ recipes } category="Meal" />}
+        && <CategoryContainer categories={ categories } foodOrDrink="drink" />}
+        {loaded && <RecipeCardsContainer recipes={ recipes } category="Drink" />}
       </header>
       <Footer />
-    </main>
+    </div>
   );
 };
 
-Foods.propTypes = {
+Drinks.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   fillListOfCategories: PropTypes.func.isRequired,
   fillListOfRecipes: PropTypes.func.isRequired,
@@ -57,4 +57,4 @@ const mapDispatchToProps = (dispatch) => ({
   fillListOfCategories: (category) => dispatch(getCategories(category)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Foods);
+export default connect(mapStateToProps, mapDispatchToProps)(Drinks);

@@ -1,8 +1,8 @@
 import React from 'react';
-import { PageTitle, LinkButton } from '../atoms';
-import Search from '../organisms/Search';
-import profileIcon from '../../images/profileIcon.svg';
-import { Footer } from '../molecules';
+import { PageTitle, LinkButton } from '../../atoms';
+import Search from '../../organisms/Search';
+import profileIcon from '../../../images/profileIcon.svg';
+import { Footer } from '../../molecules';
 
 const ExploreOrigin = () => (
   <div>
