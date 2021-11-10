@@ -13,7 +13,7 @@ const RecipeButtonFinished = () => {
         bottom: '0',
       } }
       type="button"
-      data-testid="start-recipe-btn"
+      data-testid="finish-recipe-btn"
       onClick={ handleClick }
     >
       Finalizar Receita

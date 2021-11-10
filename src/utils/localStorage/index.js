@@ -15,11 +15,11 @@ export function getRecipesInProgress() {
   return recipesInProgress;
 }
 
-export function saveRecipeInProgress(foodOrDrink, recipeId, ingredients) {
+export function saveRecipeInProgress(foodOrDrink, recipeId, ingredient) {
   if (foodOrDrink === 'Meal') {
     if (!getRecipesInProgress()) {
       const meals = {
-        [recipeId]: ingredients,
+        [recipeId]: [ingredient],
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify({ meals }));
     } else {
@@ -28,7 +28,7 @@ export function saveRecipeInProgress(foodOrDrink, recipeId, ingredients) {
         ...inProgressRecipes,
         meals: {
           ...inProgressRecipes.meals,
-          [recipeId]: ingredients,
+          [recipeId]: [...inProgressRecipes.meals[recipeId], ingredient],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipes));
@@ -36,7 +36,7 @@ export function saveRecipeInProgress(foodOrDrink, recipeId, ingredients) {
   } else if (foodOrDrink === 'Drink') {
     if (!getRecipesInProgress()) {
       const cocktails = {
-        [recipeId]: ingredients,
+        [recipeId]: [ingredient],
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails }));
     } else {
@@ -45,12 +45,57 @@ export function saveRecipeInProgress(foodOrDrink, recipeId, ingredients) {
         ...inProgressRecipes,
         cocktails: {
           ...inProgressRecipes.cocktails,
-          [recipeId]: ingredients,
+          [recipeId]: [...inProgressRecipes.cocktails[recipeId], ingredient],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipes));
     }
   }
+}
+
+export const removeIngredientRecipeInProgress = (foodOrDrink, recipeId, ingredient) => {
+  if (foodOrDrink === 'Meal') {
+    const inProgressRecipes = getRecipesInProgress();
+    const newProgressRecipes = {
+      ...inProgressRecipes,
+      meals: {
+        ...inProgressRecipes.meals,
+        [recipeId]: inProgressRecipes.meals[recipeId].filter(
+          (ingredientInProgress) => ingredientInProgress !== ingredient,
+        ),
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipes));
+  }
+  if (foodOrDrink === 'Drink') {
+    const inProgressRecipes = getRecipesInProgress();
+    const newProgressRecipes = {
+      ...inProgressRecipes,
+      cocktails: {
+        ...inProgressRecipes.cocktails,
+        [recipeId]: inProgressRecipes.cocktails[recipeId].filter(
+          (ingredientInProgress) => ingredientInProgress !== ingredient,
+        ),
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipes));
+  }
+};
+
+export function getIngredientsInProgress(foodOrDrink, recipeId) {
+  if (foodOrDrink === 'Meal') {
+    const inProgressRecipes = getRecipesInProgress();
+    if (inProgressRecipes) {
+      return inProgressRecipes.meals[recipeId];
+    }
+  }
+  if (foodOrDrink === 'Drink') {
+    const inProgressRecipes = getRecipesInProgress();
+    if (inProgressRecipes) {
+      return inProgressRecipes.cocktails[recipeId];
+    }
+  }
+  return [];
 }
 
 export function getStatusOfRecipe(recipeId) {

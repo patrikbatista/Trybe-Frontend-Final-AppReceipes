@@ -80,6 +80,8 @@ const RecipeDetails = ({ recipe, foodOrDrink, status }) => {
       <IngredientsContainer
         ingredients={ getRecipeIngredients() }
         measurements={ getRecipeMeasurements() }
+        foodOrDrink={ foodOrDrink }
+        id={ recipe[`id${foodOrDrink}`] }
       />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
       <div data-testid="video">
