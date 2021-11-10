@@ -1,10 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { setDisabled } from '../../redux/actions';
 import {
   saveRecipeInProgress, removeIngredientRecipeInProgress, getIngredientsInProgress,
 } from '../../utils/localStorage';
 
-const IngredientStep = ({ index, ingredient, measurement, foodOrDrink, id }) => (
+const getDisabled = () => {
+  const checkboxes = document.querySelectorAll('.ingredient-step');
+  const arrayCheckboxes = Array.from(checkboxes);
+  const disabled = arrayCheckboxes.some((checkbox) => checkbox.checked === false);
+  return disabled;
+};
+
+const IngredientStep = ({
+  index, ingredient, measurement, foodOrDrink, id, setButtonFinished,
+}) => (
   <label
     data-testid={ `${index}-ingredient-step` }
     htmlFor={ index }
@@ -17,6 +28,7 @@ const IngredientStep = ({ index, ingredient, measurement, foodOrDrink, id }) => 
     <input
       type="checkbox"
       id={ index }
+      className="ingredient-step"
       value={ ingredient }
       defaultChecked={ getIngredientsInProgress(foodOrDrink, id)
         .some((i) => ingredient === i) }
@@ -26,6 +38,7 @@ const IngredientStep = ({ index, ingredient, measurement, foodOrDrink, id }) => 
         } else {
           removeIngredientRecipeInProgress(foodOrDrink, id, ingredient);
         }
+        setButtonFinished(getDisabled());
       } }
     />
   </label>
@@ -37,6 +50,11 @@ IngredientStep.propTypes = {
   index: PropTypes.number.isRequired,
   ingredient: PropTypes.string.isRequired,
   measurement: PropTypes.string.isRequired,
+  setButtonFinished: PropTypes.func.isRequired,
 };
 
-export default IngredientStep;
+const mapDispatchToProps = (dispatch) => ({
+  setButtonFinished: (disabled) => dispatch(setDisabled(disabled)),
+});
+
+export default connect(null, mapDispatchToProps)(IngredientStep);

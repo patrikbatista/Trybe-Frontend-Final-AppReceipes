@@ -13,6 +13,7 @@ export const REQUEST_RECIPES = 'REQUEST_RECIPES';
 export const RECEIVE_RECIPES = 'RECEIVE_RECIPES';
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES';
+export const SET_DISABLED = 'SET_DISABLED';
 
 export const setSearchOption = (payload) => ({
   type: SET_SEARCH_OPTION,
@@ -39,6 +40,11 @@ const requestCategories = () => ({
 
 const receiveCategories = (payload) => ({
   type: RECEIVE_CATEGORIES,
+  payload,
+});
+
+export const setDisabled = (payload) => ({
+  type: SET_DISABLED,
   payload,
 });
 

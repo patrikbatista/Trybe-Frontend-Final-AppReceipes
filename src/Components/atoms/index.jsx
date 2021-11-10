@@ -8,6 +8,7 @@ import RecommendationCard from './RecomendationCard';
 import AllCategories from './AllCategories';
 import YoutubeVideo from './YoutubeVideo';
 import RecipeButtonStatus from './RecipeButtonStatus';
+import IngredientStep from './IngredientStep';
 
 export {
   Input,
@@ -20,4 +21,5 @@ export {
   RecommendationCard,
   YoutubeVideo,
   RecipeButtonStatus,
+  IngredientStep,
 };

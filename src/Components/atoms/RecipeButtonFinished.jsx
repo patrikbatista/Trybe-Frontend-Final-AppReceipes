@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
-const RecipeButtonFinished = () => {
+const RecipeButtonFinished = ({ disabled }) => {
   const handleClick = () => {
     console.log('clicked');
   };
@@ -12,6 +14,7 @@ const RecipeButtonFinished = () => {
         position: 'fixed',
         bottom: '0',
       } }
+      disabled={ disabled }
       type="button"
       data-testid="finish-recipe-btn"
       onClick={ handleClick }
@@ -21,4 +24,12 @@ const RecipeButtonFinished = () => {
   );
 };
 
-export default RecipeButtonFinished;
+RecipeButtonFinished.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  disabled: state.button.disabled,
+});
+
+export default connect(mapStateToProps)(RecipeButtonFinished);

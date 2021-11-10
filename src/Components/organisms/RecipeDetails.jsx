@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import shareIcon from '../../images/shareIcon.svg';
 import { RecipeButtonStatus } from '../atoms';
 import FavoriteButton from '../atoms/FavoriteButton';
 import RecipeButtonFinished from '../atoms/RecipeButtonFinished';
+import ShareButton from '../atoms/ShareButton';
 import YoutubeVideo from '../atoms/YoutubeVideo';
 import { IngredientsContainer, RecommendationContainer } from '../molecules';
 
@@ -54,20 +54,7 @@ const RecipeDetails = ({ recipe, foodOrDrink, status }) => {
     <section>
       <img src={ recipe[`str${foodOrDrink}Thumb`] } alt="" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{recipe[`str${foodOrDrink}`]}</h1>
-      <input
-        type="image"
-        src={ shareIcon }
-        alt="share"
-        data-testid="share-btn"
-        onClick={ () => {
-          navigator.clipboard.writeText(window.location.href.toString());
-          const alerta = document.createElement('p');
-          alerta.innerHTML = 'Link copiado!';
-          alerta.classList.add('alerta');
-          alerta.style.display = 'none';
-          document.body.appendChild(alerta);
-        } }
-      />
+      <ShareButton />
       <FavoriteButton
         id={ recipe[`id${foodOrDrink}`] }
         recipe={ recipe }
