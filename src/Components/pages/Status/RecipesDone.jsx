@@ -43,8 +43,8 @@ const RecipesDone = () => {
       >
         Drink
       </button>
-      { recipes.length ? <RecipeDoneContainer recipes={ recipes } />
-        : <RecipeDoneContainer recipes={ getDoneRecipes() } /> }
+      { recipes.length ? <RecipeDoneContainer isFavorite={ false } recipes={ recipes } />
+        : <RecipeDoneContainer isFavorite={ false } recipes={ getDoneRecipes() } /> }
     </div>
   );
 };

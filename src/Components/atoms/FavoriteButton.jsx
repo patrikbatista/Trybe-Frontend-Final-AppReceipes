@@ -8,12 +8,16 @@ import {
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-const FavoriteButton = ({ id, recipe, foodOrDrink }) => {
+const FavoriteButton = ({ id, recipe, foodOrDrink, favorite, index }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    setIsFavorite(getFavoriteRecipeExistence(id));
-  }, [id]);
+    if (favorite) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(getFavoriteRecipeExistence(id));
+    }
+  }, [id, favorite]);
 
   const handleFavorite = () => {
     if (isFavorite) {
@@ -30,7 +34,7 @@ const FavoriteButton = ({ id, recipe, foodOrDrink }) => {
       type="image"
       src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       alt="share"
-      data-testid="favorite-btn"
+      data-testid={ isFavorite ? `${index}-horizontal-favorite-btn` : 'favorite-button' }
       onClick={ handleFavorite }
     />
   );
@@ -40,6 +44,8 @@ FavoriteButton.propTypes = {
   id: PropTypes.string.isRequired,
   recipe: PropTypes.shape(PropTypes.string).isRequired,
   foodOrDrink: PropTypes.string.isRequired,
+  favorite: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default FavoriteButton;

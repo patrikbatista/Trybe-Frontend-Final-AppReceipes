@@ -62,6 +62,7 @@ const RecipeDetails = ({ recipe, foodOrDrink, status }) => {
         id={ recipe[`id${foodOrDrink}`] }
         recipe={ recipe }
         foodOrDrink={ foodOrDrink }
+        index={ 0 }
       />
       <p data-testid="recipe-category">
         {foodOrDrink === 'Drink'
