@@ -52,5 +52,3 @@ const Explore = () => {
 };
 
 export default Explore;
-
-// meals[0].idMeal
