@@ -16,7 +16,6 @@ const RecipeCard = ({ index, recipe, category }) => {
     <div
       onClick={ () => setRedirect(true) }
       data-testid={ `${index}-recipe-card` }
-      role="button"
       aria-hidden
     >
       <img
