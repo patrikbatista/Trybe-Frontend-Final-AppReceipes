@@ -23,6 +23,10 @@ const FavoriteButton = ({ id, recipe, foodOrDrink, favorite, index }) => {
     if (isFavorite) {
       removeFavoriteRecipe(id);
       setIsFavorite(false);
+      if (favorite) {
+        const card = document.getElementById(`${index}-card-recipe`);
+        card.remove();
+      }
     } else {
       saveFavoriteRecipes(recipe, foodOrDrink);
       setIsFavorite(true);

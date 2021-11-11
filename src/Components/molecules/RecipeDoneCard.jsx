@@ -5,7 +5,7 @@ import shareIcon from '../../images/shareIcon.svg';
 import FavoriteButton from '../atoms/FavoriteButton';
 
 const RecipeDoneCard = ({ recipe, index, isFavorite }) => (
-  <div>
+  <div id={ `${index}-card-recipe` }>
     <Link to={ `/${recipe.type}s/${recipe.id}` }>
       <img
         src={ recipe.image }
