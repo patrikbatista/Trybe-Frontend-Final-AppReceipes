@@ -34,7 +34,7 @@ export function saveRecipeInProgress(foodOrDrink, recipeId, ingredient) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipes));
     }
   } else if (foodOrDrink === 'Drink') {
-    if (!getRecipesInProgress()) {
+    if (!getRecipesInProgress() && !getRecipesInProgress().cocktails) {
       const cocktails = {
         [recipeId]: [ingredient],
       };
