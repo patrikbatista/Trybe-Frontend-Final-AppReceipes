@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
+import FavoriteButton from '../atoms/FavoriteButton';
 
-const RecipeDoneCard = ({ recipe, index }) => (
-  <div>
+const RecipeDoneCard = ({ recipe, index, isFavorite }) => (
+  <div id={ `${index}-card-recipe` }>
     <Link to={ `/${recipe.type}s/${recipe.id}` }>
       <img
         src={ recipe.image }
@@ -24,13 +25,16 @@ const RecipeDoneCard = ({ recipe, index }) => (
     >
       {recipe.type === 'bebida' ? 'Alcoholic' : `${recipe.area} - ${recipe.category}`}
     </p>
-    <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
+    {!isFavorite
+    && <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>}
     <input
       type="image"
       src={ shareIcon }
       alt="Share"
       onClick={ () => {
-        const url = window.location.href.toString().split('/receitas-feitas')[0];
+        const url = isFavorite
+          ? window.location.href.toString().split('/receitas-favoritas')[0]
+          : window.location.href.toString().split('/receitas-feitas')[0];
         const newUrl = `${url}/${recipe.type}s/${recipe.id}`;
         navigator.clipboard.writeText(newUrl);
         const alerta = document.createElement('p');
@@ -41,7 +45,13 @@ const RecipeDoneCard = ({ recipe, index }) => (
       } }
       data-testid={ `${index}-horizontal-share-btn` }
     />
-    {Array.from(recipe.tags).map((tag, i) => (
+    {isFavorite && <FavoriteButton
+      id={ recipe.id }
+      foodOrDrink={ recipe.type === 'comida' ? 'Meal' : 'Drink' }
+      favorite={ isFavorite }
+      index={ index }
+    />}
+    {!isFavorite && Array.from(recipe.tags).map((tag, i) => (
       <p
         key={ i }
         data-testid={ `${index}-${tag}-horizontal-tag` }
