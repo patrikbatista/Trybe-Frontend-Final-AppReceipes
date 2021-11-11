@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { PageTitle, LinkButton } from '../../atoms';
 import profileIcon from '../../../images/profileIcon.svg';
 import RecipeDoneContainer from '../../organisms/RecipeDoneContainer';
@@ -7,20 +7,17 @@ import { getDoneRecipes } from '../../../utils/localStorage';
 const RecipesDone = () => {
   const [recipes, setRecipes] = useState([]);
 
-  useEffect(() => {
-    const doneRecipes = getDoneRecipes();
-    setRecipes(doneRecipes);
-  }, []);
-
   return (
-    <header>
-      <LinkButton
-        src={ profileIcon }
-        alt="perfil"
-        href="/perfil"
-        testid="profile-top-btn"
-      />
-      <PageTitle>Receitas Feitas</PageTitle>
+    <div>
+      <header>
+        <LinkButton
+          src={ profileIcon }
+          alt="perfil"
+          href="/perfil"
+          testid="profile-top-btn"
+        />
+        <PageTitle>Receitas Feitas</PageTitle>
+      </header>
       <button
         type="button"
         data-testid="filter-by-all-btn"
@@ -46,8 +43,9 @@ const RecipesDone = () => {
       >
         Drink
       </button>
-      { recipes && <RecipeDoneContainer recipes={ recipes } /> }
-    </header>
+      { recipes.length ? <RecipeDoneContainer recipes={ recipes } />
+        : <RecipeDoneContainer recipes={ getDoneRecipes() } /> }
+    </div>
   );
 };
 

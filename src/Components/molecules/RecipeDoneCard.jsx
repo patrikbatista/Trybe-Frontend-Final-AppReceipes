@@ -1,16 +1,29 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 
 const RecipeDoneCard = ({ recipe, index }) => (
   <div>
-    <img src={ recipe.image } alt="" data-testid={ `${index}-horizontal-image` } />
+    <Link to={ `/${recipe.type}s/${recipe.id}` }>
+      <img
+        src={ recipe.image }
+        alt={ recipe.name }
+        width="120px"
+        data-testid={ `${index}-horizontal-image` }
+      />
+      <h1
+        data-testid={ `${index}-horizontal-name` }
+        aria-hidden
+      >
+        { recipe.name }
+      </h1>
+    </Link>
     <p
       data-testid={ `${index}-horizontal-top-text` }
     >
       {recipe.type === 'bebida' ? 'Alcoholic' : `${recipe.area} - ${recipe.category}`}
     </p>
-    <h1 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h1>
     <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
     <input
       type="image"

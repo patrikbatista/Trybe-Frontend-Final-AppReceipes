@@ -72,6 +72,7 @@ const RecipeDetails = ({ recipe, foodOrDrink, status }) => {
         measurements={ getRecipeMeasurements() }
         foodOrDrink={ foodOrDrink }
         id={ recipe[`id${foodOrDrink}`] }
+        status={ status }
       />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
       <div data-testid="video">
