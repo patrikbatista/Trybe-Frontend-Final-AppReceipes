@@ -16,14 +16,11 @@ const ExploreDrinks = () => (
       />
       <PageTitle>Explorar Bebidas</PageTitle>
       <Link to="/explorar/bebidas/ingredientes">
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-        >
+        <button type="button" data-testid="explore-by-ingredient">
           Por Ingredientes
         </button>
       </Link>
-      <Link to="/explorar/bebidas">
+      <Link to="/">
         <button
           type="button"
           data-testid="explore-surprise"

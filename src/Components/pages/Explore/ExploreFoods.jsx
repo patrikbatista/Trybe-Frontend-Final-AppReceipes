@@ -26,7 +26,7 @@ const Explore = () => (
       <Link to="/explorar/comidas/area">
         <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
       </Link>
-      <Link to="/explorar/bebidas">
+      <Link to="/">
         <button
           type="button"
           data-testid="explore-surprise"
