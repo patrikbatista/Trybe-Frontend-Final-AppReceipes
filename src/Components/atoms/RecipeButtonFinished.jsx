@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { saveDoneRecipe } from '../../utils/localStorage';
 
-const RecipeButtonFinished = ({ disabled }) => {
+const RecipeButtonFinished = ({ disabled, recipe, foodOrDrink }) => {
   const [redirect, setRedirect] = useState(false);
 
   if (redirect) return <Redirect to="/receitas-feitas" />;
@@ -18,7 +19,10 @@ const RecipeButtonFinished = ({ disabled }) => {
       disabled={ disabled }
       type="button"
       data-testid="finish-recipe-btn"
-      onClick={ () => setRedirect(true) }
+      onClick={ () => {
+        saveDoneRecipe(recipe, foodOrDrink);
+        setRedirect(true);
+      } }
     >
       Finalizar Receita
     </button>
@@ -27,7 +31,9 @@ const RecipeButtonFinished = ({ disabled }) => {
 
 RecipeButtonFinished.propTypes = {
   disabled: PropTypes.bool.isRequired,
-};
+  foodOrDrink: PropTypes.string.isRequired,
+  recipe: PropTypes.object.isRequired,
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   disabled: state.button.disabled,

@@ -18,7 +18,10 @@ const generateStatusButton = (statusOfRecipe, foodOrDrink, recipe, ingredients) 
       ingredients={ ingredients }
     />);
   case 'toDo':
-    return (<RecipeButtonFinished />);
+    return (<RecipeButtonFinished
+      foodOrDrink={ foodOrDrink }
+      recipe={ recipe }
+    />);
   default:
     return null;
   }

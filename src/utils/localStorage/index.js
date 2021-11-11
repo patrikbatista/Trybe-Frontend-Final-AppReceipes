@@ -85,13 +85,13 @@ export const removeIngredientRecipeInProgress = (foodOrDrink, recipeId, ingredie
 export function getIngredientsInProgress(foodOrDrink, recipeId) {
   if (foodOrDrink === 'Meal') {
     const inProgressRecipes = getRecipesInProgress();
-    if (inProgressRecipes) {
+    if (inProgressRecipes && inProgressRecipes.meals) {
       return inProgressRecipes.meals[recipeId];
     }
   }
   if (foodOrDrink === 'Drink') {
     const inProgressRecipes = getRecipesInProgress();
-    if (inProgressRecipes) {
+    if (inProgressRecipes && inProgressRecipes.cocktails) {
       return inProgressRecipes.cocktails[recipeId];
     }
   }
@@ -148,4 +148,36 @@ export function getFavoriteRecipeExistence(id) {
     return favoriteRecipes.some((recipe) => recipe.id === id);
   }
   return false;
+}
+
+export function getDoneRecipes() {
+  const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  return recipes;
+}
+
+export function saveDoneRecipe(recipe, foodOrDrink) {
+  const newRecipe = {
+    id: recipe[`id${foodOrDrink}`],
+    type: foodOrDrink === 'Meal' ? 'comida' : 'bebida',
+    area: recipe.strArea ? recipe.strArea : '',
+    category: recipe.strCategory,
+    alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
+    name: recipe[`str${foodOrDrink}`],
+    image: recipe[`str${foodOrDrink}Thumb`],
+    doneDate: 'concluida',
+    tags: recipe.strTags ? recipe.strTags.split(',') : [],
+    // category: categoria - da - receita - ou - texto - vazio,
+    // alcoholicOrNot: alcoholic - ou - non - alcoholic - ou - texto - vazio,
+    // name: nome - da - receita,
+    // image: imagem - da - receita,
+    // doneDate: quando - a - receita - foi - concluida,
+    // tags: array - de - tags - da - receita - ou - array - vazio,
+  };
+  if (!getDoneRecipes()) {
+    localStorage.setItem('doneRecipes', JSON.stringify([newRecipe]));
+  } else {
+    const doneRecipes = getDoneRecipes();
+    const newDoneRecipes = [...doneRecipes, newRecipe];
+    localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
+  }
 }
