@@ -2,7 +2,8 @@ import Drinks from './Main/Drinks';
 import Explore from './Explore/Explore';
 import ExploreDrinks from './Explore/ExploreDrinks';
 import ExploreFoods from './Explore/ExploreFoods';
-import ExploreIngredients from './Explore/ExploreIngredients';
+import ExploreFoodIngredients from './Explore/ExploreFoodIngredients';
+import ExploreDrinkIngredients from './Explore/ExploreDrinkIngredients';
 import ExploreOrigin from './Explore/ExploreOrigin';
 import Foods from './Main/Foods';
 import Login from './Login';
@@ -17,7 +18,8 @@ export {
   Explore,
   ExploreDrinks,
   ExploreFoods,
-  ExploreIngredients,
+  ExploreFoodIngredients,
+  ExploreDrinkIngredients,
   ExploreOrigin,
   Foods,
   Login,

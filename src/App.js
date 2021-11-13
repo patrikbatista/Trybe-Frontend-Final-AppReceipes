@@ -7,7 +7,8 @@ import {
   Explore,
   ExploreDrinks,
   ExploreFoods,
-  ExploreIngredients,
+  ExploreFoodIngredients,
+  ExploreDrinkIngredients,
   ExploreOrigin,
   FoodDetails,
   Foods,
@@ -51,12 +52,12 @@ function App() {
       <Route
         exact
         path="/explorar/comidas/ingredientes"
-        component={ ExploreIngredients }
+        component={ ExploreFoodIngredients }
       />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ ExploreIngredients }
+        component={ ExploreDrinkIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ ExploreOrigin } />
       <Route exact path="/perfil" component={ Profile } />
