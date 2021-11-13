@@ -32,8 +32,16 @@ const Explore = () => {
             Por Ingredientes
           </button>
         </Link>
-        <Link to="/explorar/comidas/area">
-          <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
+        <Link
+          to="/explorar/comidas/area"
+        >
+          <button
+            type="button"
+            data-testid="explore-by-area"
+          >
+            Por Local de Origem
+
+          </button>
         </Link>
         <button
           type="button"
