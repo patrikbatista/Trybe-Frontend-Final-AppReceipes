@@ -92,3 +92,17 @@ export const fetchByCategory = async (category, foodOrMeal) => {
     break;
   }
 };
+
+export async function randomFood() {
+  const ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.meals[0].idMeal;
+}
+
+export async function randomDrink() {
+  const ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.drinks[0].idDrink;
+}
