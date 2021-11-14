@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getRecipes, getCategories } from '../../../redux/actions';
+import { getRecipes, getCategories, receiveRecipes } from '../../../redux/actions';
 import { PageTitle, LinkButton } from '../../atoms';
 import { Search, RecipeCardsContainer } from '../../organisms';
 import { Footer } from '../../molecules';
 import profileIcon from '../../../images/profileIcon.svg';
 
-const ExploreOrigin = ({ loaded, recipes, fillListOfRecipes, fillListOfCategories }) => {
+const ExploreOrigin = ({
+  loaded, recipes, fillListOfRecipes, fillListOfCategories, fillRecipes,
+}) => {
   const [areas, setAreas] = useState([]);
 
   const getAreas = async () => {
@@ -22,6 +24,16 @@ const ExploreOrigin = ({ loaded, recipes, fillListOfRecipes, fillListOfCategorie
     fillListOfCategories('meal');
   }, [fillListOfCategories, fillListOfRecipes]);
 
+  const handleArea = async ({ target: { value } }) => {
+    if (value === 'all') {
+      fillListOfRecipes('meal');
+    } else {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${value}`);
+      const data = await response.json();
+      fillRecipes(data.meals);
+    }
+  };
+
   return (
     <main>
       <header>
@@ -33,7 +45,16 @@ const ExploreOrigin = ({ loaded, recipes, fillListOfRecipes, fillListOfCategorie
         />
         <PageTitle>Explorar Origem</PageTitle>
         <Search category="meal" />
-        <select data-testid="explore-by-area-dropdown">
+        <select
+          data-testid="explore-by-area-dropdown"
+          onChange={ handleArea }
+        >
+          <option
+            value="all"
+            data-testid="All-option"
+          >
+            All
+          </option>
           {areas.map((area) => (
             <option
               key={ area.strArea }
@@ -56,6 +77,7 @@ ExploreOrigin.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   fillListOfCategories: PropTypes.func.isRequired,
   fillListOfRecipes: PropTypes.func.isRequired,
+  fillRecipes: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -68,6 +90,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fillListOfRecipes: (category) => dispatch(getRecipes(category)),
   fillListOfCategories: (category) => dispatch(getCategories(category)),
+  fillRecipes: (recipes) => dispatch(receiveRecipes(recipes)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExploreOrigin);

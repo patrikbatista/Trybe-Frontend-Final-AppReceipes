@@ -12,6 +12,7 @@ import RecipesDone from './Status/RecipesDone';
 import RecipesFavorites from './Status/RecipesFavorites';
 import DrinkDetails from './Details/DrinkDetails';
 import FoodDetails from './Details/FoodDetails';
+import NotFound from './NotFound';
 
 export {
   Drinks,
@@ -28,4 +29,5 @@ export {
   RecipesFavorites,
   DrinkDetails,
   FoodDetails,
+  NotFound,
 };

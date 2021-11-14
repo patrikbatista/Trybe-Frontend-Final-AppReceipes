@@ -16,6 +16,7 @@ import {
   Profile,
   RecipesDone,
   RecipesFavorites,
+  NotFound,
 } from './Components/pages';
 import FoodInProgress from './Components/pages/InProgress/FoodInProgress';
 import DrinkInProgress from './Components/pages/InProgress/DrinkInProgress';
@@ -60,6 +61,7 @@ function App() {
         component={ ExploreDrinkIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ ExploreOrigin } />
+      <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
