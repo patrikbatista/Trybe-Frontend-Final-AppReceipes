@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { receiveRecipes } from '../../../redux/actions';
 import { PageTitle, LinkButton } from '../../atoms';
 import profileIcon from '../../../images/profileIcon.svg';
 import { Footer } from '../../molecules';
 import CardsIngredientsContainer from '../../molecules/CardsIngredientsContainer';
 
-const ExploreFoodIngredients = () => {
+const ExploreFoodIngredients = ({ fillRecipes }) => {
   const [ingredients, setIngredients] = useState([]);
 
   const getIngredients = async () => {
@@ -15,7 +18,8 @@ const ExploreFoodIngredients = () => {
 
   useEffect(() => {
     getIngredients();
-  }, []);
+    fillRecipes();
+  }, [fillRecipes]);
 
   return (
     <div>
@@ -34,4 +38,12 @@ const ExploreFoodIngredients = () => {
   );
 };
 
-export default ExploreFoodIngredients;
+ExploreFoodIngredients.propTypes = {
+  fillRecipes: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  fillRecipes: () => dispatch(receiveRecipes([1])),
+});
+
+export default connect(null, mapDispatchToProps)(ExploreFoodIngredients);

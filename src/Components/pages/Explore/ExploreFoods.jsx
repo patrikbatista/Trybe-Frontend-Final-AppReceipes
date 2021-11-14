@@ -6,7 +6,7 @@ import profileIcon from '../../../images/profileIcon.svg';
 import { Footer } from '../../molecules';
 import { randomFood } from '../../../utils/fetch';
 
-const Explore = () => {
+const ExploreFoods = () => {
   const [redirect, setRedirect] = useState(false);
   const [redirectId, setRedirectId] = useState('');
 
@@ -24,7 +24,9 @@ const Explore = () => {
           testid="profile-top-btn"
         />
         <PageTitle>Explorar Comidas</PageTitle>
-        <Link to="/explorar/comidas/ingredientes">
+        <Link
+          to="/explorar/comidas/ingredientes"
+        >
           <button
             type="button"
             data-testid="explore-by-ingredient"
@@ -59,4 +61,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default ExploreFoods;

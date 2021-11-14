@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { receiveRecipes } from '../../redux/actions';
+import { receiveRecipes, setIsIngredient } from '../../redux/actions';
 
 const MAX = 12;
 
-const CardsIngredientsContainer = ({ ingredients, saveRecipes }) => {
+const CardsIngredientsContainer = ({ ingredients, saveRecipes, isIngredient }) => {
   const handleRecipes = async (ingredient) => {
     const urlIngredient = ingredient.strIngredient
       ? ingredient.strIngredient : ingredient.strIngredient1;
@@ -16,6 +16,7 @@ const CardsIngredientsContainer = ({ ingredients, saveRecipes }) => {
     const response = await fetch(url);
     const data = await response.json();
     const recipes = data.meals ? data.meals : data.drinks;
+    isIngredient();
     saveRecipes(recipes);
   };
 
@@ -56,10 +57,12 @@ const CardsIngredientsContainer = ({ ingredients, saveRecipes }) => {
 CardsIngredientsContainer.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
   saveRecipes: PropTypes.func.isRequired,
+  isIngredient: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   saveRecipes: (recipes) => dispatch(receiveRecipes(recipes)),
+  isIngredient: () => dispatch(setIsIngredient()),
 });
 
 export default connect(null, mapDispatchToProps)(CardsIngredientsContainer);
