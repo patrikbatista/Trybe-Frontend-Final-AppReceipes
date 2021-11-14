@@ -38,7 +38,7 @@ const FavoriteButton = ({ id, recipe, foodOrDrink, favorite, index }) => {
       type="image"
       src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       alt="share"
-      data-testid={ isFavorite ? `${index}-horizontal-favorite-btn` : 'favorite-button' }
+      data-testid={ favorite ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
       onClick={ handleFavorite }
     />
   );
