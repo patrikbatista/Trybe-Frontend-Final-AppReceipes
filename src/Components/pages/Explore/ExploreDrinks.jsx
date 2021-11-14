@@ -12,7 +12,6 @@ const ExploreDrinks = () => {
 
   if (redirect) {
     return <Redirect to={ `/bebidas/${redirectId}` } />;
-    // console.log(redirectId);
   }
 
   return (

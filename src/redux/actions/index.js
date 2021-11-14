@@ -29,7 +29,7 @@ const requestRecipes = () => ({
   type: REQUEST_RECIPES,
 });
 
-const receiveRecipes = (payload) => ({
+export const receiveRecipes = (payload) => ({
   type: RECEIVE_RECIPES,
   payload,
 });

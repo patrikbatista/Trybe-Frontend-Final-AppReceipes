@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 
-const LinkButton = ({ src, testid, alt, href }) => {
+const LinkButton = ({ src, testid, alt, href, handleClick }) => {
   const [redirect, setRedirect] = useState(false);
 
   if (redirect) return <Redirect to={ href } />;
@@ -14,6 +14,7 @@ const LinkButton = ({ src, testid, alt, href }) => {
       alt={ alt }
       data-testid={ testid }
       onClick={ () => {
+        handleClick();
         setRedirect(true);
       } }
     />
@@ -25,6 +26,11 @@ LinkButton.propTypes = {
   href: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,
+  handleClick: PropTypes.func,
+};
+
+LinkButton.defaultProps = {
+  handleClick: () => {},
 };
 
 export default LinkButton;

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { getRecipes, getCategories } from '../../redux/actions';
 import { Input, Button } from '../atoms';
 
 import { emailVerification, passwordVerification } from '../../utils/verify';
 import { createTokens, saveUser } from '../../utils/localStorage';
 
-const Login = ({ history }) => {
+const Login = ({ history, fillListOfRecipes, fillListOfCategories }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,6 +15,8 @@ const Login = ({ history }) => {
     event.preventDefault();
     createTokens();
     saveUser(email);
+    fillListOfRecipes('meal');
+    fillListOfCategories('meal');
     history.push('/comidas');
   };
 
@@ -50,6 +54,13 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  fillListOfRecipes: PropTypes.func.isRequired,
+  fillListOfCategories: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  fillListOfRecipes: (category) => dispatch(getRecipes(category)),
+  fillListOfCategories: (category) => dispatch(getCategories(category)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
