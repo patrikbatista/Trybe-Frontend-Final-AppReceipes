@@ -8,7 +8,7 @@ const ShareButton = () => (
     alt="share"
     data-testid="share-btn"
     onClick={ () => {
-      navigator.clipboard.writeText(window.location.href.toString()
+      window.navigator.clipboard.writeText(window.location.href.toString()
         .split('/in-progress')[0]);
       const alerta = document.createElement('p');
       alerta.innerHTML = 'Link copiado!';
