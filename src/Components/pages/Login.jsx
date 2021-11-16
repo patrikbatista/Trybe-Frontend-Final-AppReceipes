@@ -1,20 +1,24 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Redirect } from 'react-router';
 import { Input, Button } from '../atoms';
-
 import { emailVerification, passwordVerification } from '../../utils/verify';
 import { createTokens, saveUser } from '../../utils/localStorage';
 
-const Login = ({ history }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     createTokens();
     saveUser(email);
-    history.push('/comidas');
+    setRedirect(true);
   };
+
+  if (redirect) {
+    return <Redirect to="/comidas" />;
+  }
 
   return (
     <main>
@@ -44,12 +48,6 @@ const Login = ({ history }) => {
       </form>
     </main>
   );
-};
-
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
 };
 
 export default Login;
