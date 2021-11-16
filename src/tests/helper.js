@@ -7,14 +7,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../redux/reducers';
 
-const createMockStore = (initialState) => (
-  createStore(combineReducers({ rootReducer }), initialState, applyMiddleware(thunk))
+const createMockStore = () => (
+  createStore(combineReducers({ rootReducer }), applyMiddleware(thunk))
 );
 
-const renderWithRouterAndRedux = (
-  component, { initialState, store = createMockStore(initialState) } = {},
-) => {
+const renderWithRouterAndRedux = (component) => {
   const history = createMemoryHistory();
+  const store = createMockStore();
   return ({
     ...render(
       <Router history={history}>

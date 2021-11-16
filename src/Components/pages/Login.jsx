@@ -49,7 +49,13 @@ const Login = ({ history }) => {
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
-  }).isRequired,
+  }),
+};
+
+Login.defaultProps = {
+  history: {
+    push: () => {},
+  },
 };
 
 export default Login;
