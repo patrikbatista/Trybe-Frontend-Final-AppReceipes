@@ -1,8 +1,7 @@
 import React from 'react';
-import renderWithRouterAndRedux from './helper';
-import { Login } from '../Components/pages';
 import { fireEvent } from '@testing-library/dom';
-import App from '../App';
+import renderWithRouterAndRedux from './tests/helper'
+import { Login } from '../src/Components/pages'
 
 describe('1 - Tela de login', () => {
   describe('Crie todos os elementos que devem respeitar os atributos descritos no protótipo para a tela de login', () => {
