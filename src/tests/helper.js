@@ -15,7 +15,7 @@ const renderWithRouterAndRedux = (
   { initialState, store = createMockStore(initialState) } = {}
 ) => {
   const history = createMemoryHistory();
-  return {
+  return ({
     ...render(
       <Provider store={store}>
         <Router history={history}>{component}</Router>
