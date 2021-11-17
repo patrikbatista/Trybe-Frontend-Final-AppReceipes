@@ -1,6 +1,8 @@
 import React from 'react';
 import shareIcon from '../../images/shareIcon.svg';
 
+const copy = require('clipboard-copy');
+
 const ShareButton = () => (
   <input
     type="image"
@@ -8,7 +10,7 @@ const ShareButton = () => (
     alt="share"
     data-testid="share-btn"
     onClick={ () => {
-      window.navigator.clipboard.writeText(window.location.href.toString()
+      copy(window.location.href.toString()
         .split('/in-progress')[0]);
       const alerta = document.createElement('p');
       alerta.innerHTML = 'Link copiado!';
