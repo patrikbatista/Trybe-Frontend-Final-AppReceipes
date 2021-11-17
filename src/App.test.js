@@ -1,10 +1,10 @@
 import React from 'react';
-import { fireEvent, screen, act, render } from '@testing-library/react';
+import { fireEvent, screen, act } from '@testing-library/react';
 import renderWithRouterAndRedux from './tests/helper'
-import { Drinks, Explore, ExploreDrinks, ExploreFoods, Foods, Login, NotFound } from '../src/Components/pages'
+import { Drinks, Explore, ExploreDrinkIngredients, ExploreDrinks, ExploreFoodIngredients, ExploreFoods, ExploreOrigin, Foods, Login, NotFound, Profile, RecipesDone, RecipesFavorites } from '../src/Components/pages'
 import App from './App';
 
-const foodDetailsResponse = Promise.resolve({
+const foodResponse = Promise.resolve({
   json: () => Promise.resolve({
     "meals": [
     {
@@ -66,7 +66,7 @@ const foodDetailsResponse = Promise.resolve({
     })
 });
 
-const drinkDetailsResponse = Promise.resolve({
+const drinkResponse = Promise.resolve({
   json: () => Promise.resolve({
     "drinks": [
     {
@@ -365,7 +365,7 @@ describe('2 - Rotas', () => {
 
   describe('Ao entrar na rota "/comidas/:id"', () => {
     it('A tela de detalhes da comida deve renderizar', async () => {
-      global.fetch = jest.fn().mockImplementation(() => foodDetailsResponse);
+      global.fetch = jest.fn().mockImplementation(() => foodResponse);
       await act(async () => { 
         const { history } = renderWithRouterAndRedux(<App />)
         history.push('/comidas/52771')
@@ -376,7 +376,7 @@ describe('2 - Rotas', () => {
 
   describe('Ao entrar na rota "/bebidas/:id"', () => {
     it('A tela de detalhes da bebida deve renderizar', async () => {
-      global.fetch = jest.fn().mockImplementation(() => drinkDetailsResponse);
+      global.fetch = jest.fn().mockImplementation(() => drinkResponse);
       await act(async () => { 
         const { history } = renderWithRouterAndRedux(<App />)
         history.push('/bebidas/52771')
@@ -387,7 +387,7 @@ describe('2 - Rotas', () => {
 
   describe('Ao entrar na rota "/comidas/:id/in-progress"', () => {
     it('A tela de progresso da comida deve renderizar', async () => {
-      global.fetch = jest.fn().mockImplementation(() => foodDetailsResponse);
+      global.fetch = jest.fn().mockImplementation(() => foodResponse);
       await act(async () => { 
         const { history } = renderWithRouterAndRedux(<App />)
         history.push('/comidas/52771/in-progress')
@@ -398,7 +398,7 @@ describe('2 - Rotas', () => {
 
   describe('Ao entrar na rota "/bebidas/:id/in-progress"', () => {
     it('A tela de progresso da bebida deve renderizar', async () => {
-      global.fetch = jest.fn().mockImplementation(() => drinkDetailsResponse);
+      global.fetch = jest.fn().mockImplementation(() => drinkResponse);
       await act(async () => { 
         const { history } = renderWithRouterAndRedux(<App />)
         history.push('/bebidas/52771/in-progress')
@@ -421,6 +421,17 @@ describe('2 - Rotas', () => {
     });
   })
 
+  describe('Ao entrar na rota "/explorar/comidas"', () => {
+    it('A tela de explorar de comidas deve renderizar', async () => {
+      global.fetch = jest.fn().mockImplementation(() => foodResponse);
+      await act(async () => {
+        renderWithRouterAndRedux(<ExploreFoods />)
+        fireEvent.click(screen.getByTestId('explore-surprise'));
+      });
+      expect(screen.getByText('Spicy Arrabiata Penne')).toBeInTheDocument();
+    })
+  })
+
   describe('Ao entrar na rota "/explorar/bebidas"', () => {
     it('A tela de explorar de bebidas deve renderizar', () => {
       const { getByText } = renderWithRouterAndRedux(<ExploreDrinks />);
@@ -428,11 +439,71 @@ describe('2 - Rotas', () => {
     });
   })
 
+  describe('Ao entrar na rota "/explorar/comidas/ingredientes"', () => {
+    it('A tela de ingredientes de comidas deve renderizar', async () => {
+      global.fetch = jest.fn().mockImplementation(() => ingredientsFoodResponse);
+      await act(async () => { 
+        renderWithRouterAndRedux(<ExploreFoodIngredients />)
+      });
+      expect(screen.getByText('Chicken')).toBeInTheDocument();
+    });
+  });
+
+  describe('Ao entrar na rota "/explorar/bebidas/ingredientes"', () => {
+    it('A tela de ingredientes de comidas deve renderizar', async () => {
+      global.fetch = jest.fn().mockImplementation(() => ingredientsDrinkResponse);
+      await act(async () => { 
+        renderWithRouterAndRedux(<ExploreDrinkIngredients />)
+      });
+      expect(screen.getByText('Light rum')).toBeInTheDocument();
+    });
+  });
+
+  describe('Ao entrar na rota "/explorar/comidas/area"', () => {
+    it('A tela de explorar comidas por área deve renderizar', async () => {
+      global.fetch = jest.fn().mockImplementation(() => foodResponse);
+      await act(async () => { 
+        renderWithRouterAndRedux(<ExploreOrigin />)
+      });
+      expect(screen.getByText('Explorar Origem')).toBeInTheDocument();
+    });
+  });
+
   describe('Not Found', () => {
     it('Ao entrar na rota "/explorar/bebidas/area" renderiza not', () => {
       const { getByText } = renderWithRouterAndRedux(<NotFound />);
       expect(getByText('Not Found')).toBeInTheDocument();
     })
   })
+
+  describe('Ao entrar na rota "/perfil"', () => {
+    it('A tela de perfil deve renderizar', () => {
+      const { getByText } = renderWithRouterAndRedux(<Profile />);
+      expect(getByText('Perfil')).toBeInTheDocument();
+    })
+  })
+
+  describe('Ao entrar na rota "/receitas-feitas"', () => {
+    it('A tela de receitas feitas deve renderizar', () => {
+      const { getByText } = renderWithRouterAndRedux(<RecipesDone />);
+      expect(getByText('Receitas Feitas')).toBeInTheDocument();
+    })
+  })
+
+  describe('Ao entrar na rota "/receitas-favoritas"', () => {
+    it('A tela de receitas favoritas deve renderizar', () => {
+      const { getByText } = renderWithRouterAndRedux(<RecipesFavorites />);
+      expect(getByText('Receitas Favoritas')).toBeInTheDocument();
+    })
+  })
 })
 
+describe('3 - Tela de comidas e bebidas', () => {
+  describe('', () => {
+    it('O input de email deve possuir o atributo data-testid="email-input"', () => {
+      const { getByTestId } = renderWithRouterAndRedux(<Login />);
+      const emailInput = getByTestId('email-input');
+      expect(emailInput).toBeInTheDocument();
+    });
+  })
+})
