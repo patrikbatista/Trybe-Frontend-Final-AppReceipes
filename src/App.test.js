@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, screen, act, render } from '@testing-library/react';
 import renderWithRouterAndRedux from './tests/helper'
-import { Drinks, FoodDetails, Foods, Login, NotFound } from '../src/Components/pages'
+import { Drinks, Explore, ExploreDrinks, ExploreFoods, Foods, Login, NotFound } from '../src/Components/pages'
 import App from './App';
 
 const foodDetailsResponse = Promise.resolve({
@@ -123,6 +123,100 @@ const drinkDetailsResponse = Promise.resolve({
     "strImageSource": null,
     "strCreativeCommonsConfirmed": null,
     "dateModified": null
+    }
+    ]
+    })
+});
+
+const ingredientsDrinkResponse = Promise.resolve({
+  json: () => Promise.resolve({
+    "drinks": [
+    {
+    "strIngredient1": "Light rum"
+    },
+    {
+    "strIngredient1": "Applejack"
+    },
+    {
+    "strIngredient1": "Gin"
+    },
+    {
+    "strIngredient1": "Dark rum"
+    },
+    {
+    "strIngredient1": "Sweet Vermouth"
+    },
+    {
+    "strIngredient1": "Strawberry schnapps"
+    },
+    {
+    "strIngredient1": "Scotch"
+    },
+    {
+    "strIngredient1": "Apricot brandy"
+    }
+    ]
+    })
+});
+
+const ingredientsFoodResponse = Promise.resolve({
+  json: () => Promise.resolve({
+    "meals": [
+    {
+    "idIngredient": "1",
+    "strIngredient": "Chicken",
+    },
+    {
+    "idIngredient": "2",
+    "strIngredient": "Salmon",
+    },
+    {
+    "idIngredient": "3",
+    "strIngredient": "Beef",
+    },
+    {
+    "idIngredient": "4",
+    "strIngredient": "Pork",
+    },
+    {
+    "idIngredient": "5",
+    "strIngredient": "Avocado",
+    },
+    {
+    "idIngredient": "9",
+    "strIngredient": "Apple Cider Vinegar",
+    },
+    {
+    "idIngredient": "10",
+    "strIngredient": "Asparagus",
+    },
+    {
+    "idIngredient": "11",
+    "strIngredient": "Aubergine",
+    },
+    {
+    "idIngredient": "13",
+    "strIngredient": "Baby Plum Tomatoes",
+    },
+    {
+    "idIngredient": "14",
+    "strIngredient": "Bacon",
+    },
+    {
+    "idIngredient": "15",
+    "strIngredient": "Baking Powder",
+    },
+    {
+    "idIngredient": "16",
+    "strIngredient": "Balsamic Vinegar",
+    },
+    {
+    "idIngredient": "17",
+    "strIngredient": "Basil",
+    },
+    {
+    "idIngredient": "18",
+    "strIngredient": "Basil Leaves",
     }
     ]
     })
@@ -312,12 +406,33 @@ describe('2 - Rotas', () => {
       expect(screen.getByTestId('recipe-title')).toBeInTheDocument();
     });
   })
-})
 
+  describe('Ao entrar na rota "/explorar"', () => {
+    it('A tela de explorar deve renderizar', () => {
+      const { getByText } = renderWithRouterAndRedux(<Explore />);
+      expect(getByText('Explorar')).toBeInTheDocument();
+    });
+  })
 
-describe('Not Found', () => {
-  it('Ao entrar na rota "/explorar/bebidas/area" renderiza not', () => {
-    const { getByText } = renderWithRouterAndRedux(<NotFound />);
-    expect(getByText('Not Found')).toBeInTheDocument();
+  describe('Ao entrar na rota "/explorar/comidas"', () => {
+    it('A tela de explorar de comidas deve renderizar', () => {
+      const { getByText } = renderWithRouterAndRedux(<ExploreFoods />);
+      expect(getByText('Explorar Comidas')).toBeInTheDocument();
+    });
+  })
+
+  describe('Ao entrar na rota "/explorar/bebidas"', () => {
+    it('A tela de explorar de bebidas deve renderizar', () => {
+      const { getByText } = renderWithRouterAndRedux(<ExploreDrinks />);
+      expect(getByText('Explorar Bebidas')).toBeInTheDocument();
+    });
+  })
+
+  describe('Not Found', () => {
+    it('Ao entrar na rota "/explorar/bebidas/area" renderiza not', () => {
+      const { getByText } = renderWithRouterAndRedux(<NotFound />);
+      expect(getByText('Not Found')).toBeInTheDocument();
+    })
   })
 })
+
