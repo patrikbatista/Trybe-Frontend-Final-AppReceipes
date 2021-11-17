@@ -1,12 +1,132 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/dom';
+import { fireEvent, screen, act, render } from '@testing-library/react';
 import renderWithRouterAndRedux from './tests/helper'
 import { Drinks, FoodDetails, Foods, Login, NotFound } from '../src/Components/pages'
 import App from './App';
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+const foodDetailsResponse = Promise.resolve({
+  json: () => Promise.resolve({
+    "meals": [
+    {
+    "idMeal": "52771",
+    "strMeal": "Spicy Arrabiata Penne",
+    "strDrinkAlternate": null,
+    "strCategory": "Vegetarian",
+    "strArea": "Italian",
+    "strInstructions": "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
+    "strMealThumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+    "strTags": "Pasta,Curry",
+    "strYoutube": "https://www.youtube.com/watch?v=1IszT_guI08",
+    "strIngredient1": "penne rigate",
+    "strIngredient2": "olive oil",
+    "strIngredient3": "garlic",
+    "strIngredient4": "chopped tomatoes",
+    "strIngredient5": "red chile flakes",
+    "strIngredient6": "italian seasoning",
+    "strIngredient7": "basil",
+    "strIngredient8": "Parmigiano-Reggiano",
+    "strIngredient9": "",
+    "strIngredient10": "",
+    "strIngredient11": "",
+    "strIngredient12": "",
+    "strIngredient13": "",
+    "strIngredient14": "",
+    "strIngredient15": "",
+    "strIngredient16": null,
+    "strIngredient17": null,
+    "strIngredient18": null,
+    "strIngredient19": null,
+    "strIngredient20": null,
+    "strMeasure1": "1 pound",
+    "strMeasure2": "1/4 cup",
+    "strMeasure3": "3 cloves",
+    "strMeasure4": "1 tin ",
+    "strMeasure5": "1/2 teaspoon",
+    "strMeasure6": "1/2 teaspoon",
+    "strMeasure7": "6 leaves",
+    "strMeasure8": "spinkling",
+    "strMeasure9": "",
+    "strMeasure10": "",
+    "strMeasure11": "",
+    "strMeasure12": "",
+    "strMeasure13": "",
+    "strMeasure14": "",
+    "strMeasure15": "",
+    "strMeasure16": null,
+    "strMeasure17": null,
+    "strMeasure18": null,
+    "strMeasure19": null,
+    "strMeasure20": null,
+    "strSource": null,
+    "strImageSource": null,
+    "strCreativeCommonsConfirmed": null,
+    "dateModified": null
+    }
+    ]
+    })
+});
+
+const drinkDetailsResponse = Promise.resolve({
+  json: () => Promise.resolve({
+    "drinks": [
+    {
+    "idMeal": "52771",
+    "strMeal": "Spicy Arrabiata Penne",
+    "strDrinkAlternate": null,
+    "strCategory": "Vegetarian",
+    "strArea": "Italian",
+    "strInstructions": "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
+    "strMealThumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+    "strTags": "Pasta,Curry",
+    "strYoutube": "https://www.youtube.com/watch?v=1IszT_guI08",
+    "strIngredient1": "penne rigate",
+    "strIngredient2": "olive oil",
+    "strIngredient3": "garlic",
+    "strIngredient4": "chopped tomatoes",
+    "strIngredient5": "red chile flakes",
+    "strIngredient6": "italian seasoning",
+    "strIngredient7": "basil",
+    "strIngredient8": "Parmigiano-Reggiano",
+    "strIngredient9": "",
+    "strIngredient10": "",
+    "strIngredient11": "",
+    "strIngredient12": "",
+    "strIngredient13": "",
+    "strIngredient14": "",
+    "strIngredient15": "",
+    "strIngredient16": null,
+    "strIngredient17": null,
+    "strIngredient18": null,
+    "strIngredient19": null,
+    "strIngredient20": null,
+    "strMeasure1": "1 pound",
+    "strMeasure2": "1/4 cup",
+    "strMeasure3": "3 cloves",
+    "strMeasure4": "1 tin ",
+    "strMeasure5": "1/2 teaspoon",
+    "strMeasure6": "1/2 teaspoon",
+    "strMeasure7": "6 leaves",
+    "strMeasure8": "spinkling",
+    "strMeasure9": "",
+    "strMeasure10": "",
+    "strMeasure11": "",
+    "strMeasure12": "",
+    "strMeasure13": "",
+    "strMeasure14": "",
+    "strMeasure15": "",
+    "strMeasure16": null,
+    "strMeasure17": null,
+    "strMeasure18": null,
+    "strMeasure19": null,
+    "strMeasure20": null,
+    "strSource": null,
+    "strImageSource": null,
+    "strCreativeCommonsConfirmed": null,
+    "dateModified": null
+    }
+    ]
+    })
+});
 
 describe('1 - Tela de login', () => {
   describe('Crie todos os elementos que devem respeitar os atributos descritos no protótipo para a tela de login', () => {
@@ -151,82 +271,45 @@ describe('2 - Rotas', () => {
 
   describe('Ao entrar na rota "/comidas/:id"', () => {
     it('A tela de detalhes da comida deve renderizar', async () => {
-      const { history, getByTestId } = renderWithRouterAndRedux(<App />);
-      history.push('/comidas/52771');
-      expect(history.location.pathname).toBe('/comidas/52771');
-      const apiResponse = Promise.resolve({
-        json: () => Promise.resolve({
-          "meals": [
-          {
-          "idMeal": "52771",
-          "strMeal": "Spicy Arrabiata Penne",
-          "strDrinkAlternate": null,
-          "strCategory": "Vegetarian",
-          "strArea": "Italian",
-          "strInstructions": "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
-          "strMealThumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
-          "strTags": "Pasta,Curry",
-          "strYoutube": "https://www.youtube.com/watch?v=1IszT_guI08",
-          "strIngredient1": "penne rigate",
-          "strIngredient2": "olive oil",
-          "strIngredient3": "garlic",
-          "strIngredient4": "chopped tomatoes",
-          "strIngredient5": "red chile flakes",
-          "strIngredient6": "italian seasoning",
-          "strIngredient7": "basil",
-          "strIngredient8": "Parmigiano-Reggiano",
-          "strIngredient9": "",
-          "strIngredient10": "",
-          "strIngredient11": "",
-          "strIngredient12": "",
-          "strIngredient13": "",
-          "strIngredient14": "",
-          "strIngredient15": "",
-          "strIngredient16": null,
-          "strIngredient17": null,
-          "strIngredient18": null,
-          "strIngredient19": null,
-          "strIngredient20": null,
-          "strMeasure1": "1 pound",
-          "strMeasure2": "1/4 cup",
-          "strMeasure3": "3 cloves",
-          "strMeasure4": "1 tin ",
-          "strMeasure5": "1/2 teaspoon",
-          "strMeasure6": "1/2 teaspoon",
-          "strMeasure7": "6 leaves",
-          "strMeasure8": "spinkling",
-          "strMeasure9": "",
-          "strMeasure10": "",
-          "strMeasure11": "",
-          "strMeasure12": "",
-          "strMeasure13": "",
-          "strMeasure14": "",
-          "strMeasure15": "",
-          "strMeasure16": null,
-          "strMeasure17": null,
-          "strMeasure18": null,
-          "strMeasure19": null,
-          "strMeasure20": null,
-          "strSource": null,
-          "strImageSource": null,
-          "strCreativeCommonsConfirmed": null,
-          "dateModified": null
-          }
-          ]
-          })
+      global.fetch = jest.fn().mockImplementation(() => foodDetailsResponse);
+      await act(async () => { 
+        const { history } = renderWithRouterAndRedux(<App />)
+        history.push('/comidas/52771')
       });
-      const mockedExchange = jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
-      await sleep(1000);
-        expect(mockedExchange).toHaveBeenCalledTimes(1);
+      expect(screen.getByTestId('recipe-title')).toBeInTheDocument();
     });
   })
 
   describe('Ao entrar na rota "/bebidas/:id"', () => {
     it('A tela de detalhes da bebida deve renderizar', async () => {
-      const { history, getByTestId } = renderWithRouterAndRedux(<App />);
-      history.push('/bebidas/52771');
-      expect(history.location.pathname).toBe('/bebidas/52771');
-      expect(getByTestId('drink-detail')).toBeInTheDocument();
+      global.fetch = jest.fn().mockImplementation(() => drinkDetailsResponse);
+      await act(async () => { 
+        const { history } = renderWithRouterAndRedux(<App />)
+        history.push('/bebidas/52771')
+      });
+      expect(screen.getByTestId('recipe-title')).toBeInTheDocument();
+    });
+  })
+
+  describe('Ao entrar na rota "/comidas/:id/in-progress"', () => {
+    it('A tela de progresso da comida deve renderizar', async () => {
+      global.fetch = jest.fn().mockImplementation(() => foodDetailsResponse);
+      await act(async () => { 
+        const { history } = renderWithRouterAndRedux(<App />)
+        history.push('/comidas/52771/in-progress')
+      });
+      expect(screen.getByTestId('recipe-title')).toBeInTheDocument();
+    });
+  })
+
+  describe('Ao entrar na rota "/bebidas/:id/in-progress"', () => {
+    it('A tela de progresso da bebida deve renderizar', async () => {
+      global.fetch = jest.fn().mockImplementation(() => drinkDetailsResponse);
+      await act(async () => { 
+        const { history } = renderWithRouterAndRedux(<App />)
+        history.push('/bebidas/52771/in-progress')
+      });
+      expect(screen.getByTestId('recipe-title')).toBeInTheDocument();
     });
   })
 })
