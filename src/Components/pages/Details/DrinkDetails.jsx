@@ -17,7 +17,7 @@ const DrinkDetails = () => {
   }, [id]);
 
   return (
-    <div>
+    <div data-testid="drink-detail">
       {recipe && <RecipeDetails
         recipe={ recipe }
         foodOrDrink="Drink"

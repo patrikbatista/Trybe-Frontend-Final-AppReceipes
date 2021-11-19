@@ -30,22 +30,22 @@ function App() {
       <Route
         exact
         path="/comidas/:id"
-        render={ (props) => <FoodDetails { ...props } /> }
+        component={ FoodDetails }
       />
       <Route
         exact
         path="/bebidas/:id"
-        render={ (props) => <DrinkDetails { ...props } /> }
+        component={ DrinkDetails }
       />
       <Route
         exact
         path="/comidas/:id/in-progress"
-        render={ (props) => <FoodInProgress { ...props } /> }
+        component={ FoodInProgress }
       />
       <Route
         exact
         path="/bebidas/:id/in-progress"
-        render={ (props) => <DrinkInProgress { ...props } /> }
+        component={ DrinkInProgress }
       />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoods } />

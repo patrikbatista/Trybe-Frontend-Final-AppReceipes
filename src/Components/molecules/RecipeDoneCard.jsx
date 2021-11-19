@@ -36,7 +36,7 @@ const RecipeDoneCard = ({ recipe, index, isFavorite }) => (
           ? window.location.href.toString().split('/receitas-favoritas')[0]
           : window.location.href.toString().split('/receitas-feitas')[0];
         const newUrl = `${url}/${recipe.type}s/${recipe.id}`;
-        navigator.clipboard.writeText(newUrl);
+        window.navigator.clipboard.writeText(newUrl);
         const alerta = document.createElement('p');
         alerta.innerHTML = 'Link copiado!';
         alerta.classList.add('alerta');
