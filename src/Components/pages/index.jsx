@@ -13,6 +13,7 @@ import RecipesFavorites from './Status/RecipesFavorites';
 import DrinkDetails from './Details/DrinkDetails';
 import FoodDetails from './Details/FoodDetails';
 import NotFound from './NotFound';
+import FoodInProgress from './InProgress/FoodInProgress';
 
 export {
   Drinks,
@@ -30,4 +31,5 @@ export {
   DrinkDetails,
   FoodDetails,
   NotFound,
+  FoodInProgress,
 };

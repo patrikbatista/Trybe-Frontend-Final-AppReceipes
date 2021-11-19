@@ -16,8 +16,24 @@ import {
   Profile,
   RecipesDone,
   RecipesFavorites,
+  FoodInProgress,
 } from "../src/Components/pages";
 import App from "./App";
+import ShareButton from "./Components/atoms/ShareButton";
+
+const mockDoneRecipes = [
+  {
+    id: "52977",
+    type: "comida",
+    area: "Turkish",
+    category: "Side",
+    alcoholicOrNot: "",
+    name: "Corba",
+    image: "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg",
+    doneDate: "concluida",
+    tags: ["Soup"],
+  },
+];
 
 const foodResponse = Promise.resolve({
   json: () =>
@@ -587,7 +603,7 @@ describe("3 - Tela de comidas e bebidas", () => {
       const input = getByTestId("search-input");
       fireEvent.change(input, { target: { value: "pizza" } });
       expect(input.value).toBe("pizza");
-    })
+    });
 
     it("É possível transitar entre os radio buttons", () => {
       const { getByTestId } = renderWithRouterAndRedux(<Foods />);
@@ -601,7 +617,7 @@ describe("3 - Tela de comidas e bebidas", () => {
       expect(radio2.checked).toBe(true);
       fireEvent.click(radio3);
       expect(radio3.checked).toBe(true);
-    })
+    });
 
     it("É possível pesquisar por cada categoria", () => {
       const { getByTestId } = renderWithRouterAndRedux(<Foods />);
@@ -610,8 +626,7 @@ describe("3 - Tela de comidas e bebidas", () => {
       fireEvent.change(input, { target: { value: "pizza" } });
       fireEvent.click(getByTestId("ingredient-search-radio"));
       fireEvent.click(getByTestId("exec-search-btn"));
-    })
-
+    });
   });
 });
 
@@ -634,6 +649,56 @@ describe("4 - Tela de detalhes das receitas", () => {
       expect(screen.getByTestId("share-btn")).toBeInTheDocument();
       fireEvent.click(screen.getByTestId("favorite-btn"));
       expect(screen.getByTestId("favorite-btn")).toBeInTheDocument();
+    });
+  });
+
+  describe("Container dos cards de ingredientes", () => {
+    it("Deve existir um container de cards de ingredientes que exibe os mesmos", async () => {
+      global.fetch = jest
+        .fn()
+        .mockImplementation(() => ingredientsDrinkResponse);
+      await act(async () => {
+        renderWithRouterAndRedux(<ExploreDrinkIngredients />);
+      });
+      fireEvent.click(screen.getByText("Light rum"));
+    });
+  });
+
+  describe("Renderizar receitas feitas", () => {
+    it("Deve aparecer o nome da receita na tela", async () => {
+      localStorage.setItem("doneRecipes", JSON.stringify(mockDoneRecipes));
+      window.navigator.clipboard = {
+        writeText: jest.fn(),
+      }
+      await act(async () => {
+        renderWithRouterAndRedux(<RecipesDone />);
+      });
+      expect(screen.getByText("Corba")).toBeInTheDocument();
+      fireEvent.click(screen.getByText("Drink"));
+      fireEvent.click(screen.getByText("Food"));
+      fireEvent.click(screen.getByText("All"));
+      fireEvent.click(screen.getByAltText('Share'));
+    });
+  });
+
+  describe("Botão de compartilhar", () => {
+    it("Deve existir um botão de compartilhar", async () => {
+      await act(async () => {
+        renderWithRouterAndRedux(<ShareButton />);
+      });
+      expect(screen.getByTestId("share-btn")).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId("share-btn"));
+    });
+  });
+
+  describe("Botão de favorito", () => {
+    it("Deve existir um botão de iniciar", async () => {
+      global.fetch = jest.fn().mockImplementation(() => foodResponse);
+      await act(async () => {
+        renderWithRouterAndRedux(<FoodInProgress />);
+      });
+      expect(screen.getByTestId("1-ingredient-step")).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId("1-ingredient-step"));
     });
   });
 });
